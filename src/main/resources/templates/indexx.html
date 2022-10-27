@@ -1,35 +1,70 @@
-<!--    <!DOCTYPE html>-->
-<!--    <html lang="en" xmlns:th="http://www.thymeleaf.org">-->
-<!--    <head>-->
-<!--        <meta charset="ISO-8859-1">-->
-<!--        <title>Teacher Management System</title>-->
+    <!DOCTYPE html>
+    <html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="ISO-8859-1">
+        <title>Bank Management System</title>
 
-<!--        <link rel="stylesheet"-->
-<!--              href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"-->
-<!--              integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"-->
-<!--              crossorigin="anonymous">-->
+        <link rel="stylesheet"
+              href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+              integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+              crossorigin="anonymous">
 
-<!--    </head>-->
-<!--    <body>-->
-<!--    <div class="container my-2">-->
-<!--        <h1>Teacher List</h1>-->
-<!--        &lt;!&ndash;    <a th:href = "@{/showNewEmployeeForm}" class="btn btn-primary btn-sm mb-3"> Add Employee </a>&ndash;&gt;-->
-<!--        <table border="1" class = "table table-striped table-responsive-md">-->
-<!--            <thead>-->
-<!--            <tr>-->
-<!--                <th>Teacher  Name</th>-->
-<!--                <th>Teacher dept</th>-->
-<!--                <th>Teacher salary</th>-->
-<!--            </tr>-->
-<!--            </thead>-->
-<!--            <tbody>-->
-<!--            <tr th:each="Teacher : ${Listofteacher}">-->
-<!--                <td th:text="${Teacher.name}"></td>-->
-<!--                <td th:text="${Teacher.dept}"></td>-->
-<!--                <td th:text="${Teacher.salary}"></td>-->
-<!--            </tr>-->
-<!--            </tbody>-->
-<!--        </table>-->
-<!--    </div>-->
-<!--    </body>-->
-<!--    </html>-->
+    </head>
+    <body>
+    <div class="container my-2">
+        <h1>Account Details List</h1>
+        <!--    <a th:href = "@{/showNewEmployeeForm}" class="btn btn-primary btn-sm mb-3"> Add Employee </a>-->
+        <table border="1" class = "table table-striped table-responsive-md">
+            <thead>
+            <tr>
+                <th>ACCOUNTNO</th>
+                <th>ADHARCARDNUMBER </th>
+                <th>NAME</th>
+                <th>PANCARDNUMBER</th>
+                <th>PERMANENT_ADDRESS</th>
+                <th>AMOUNT</th>
+                <th>CURRENT_ADDRESS</th>
+                <th> Actions </th>
+                <th> Actions </th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="account_details : ${List}">
+                <td th:text="${account_details.Accountno}"></td>
+                <td th:text="${account_details.Name}"></td>
+                <td th:text="${account_details.current_address}"></td>
+                <td th:text="${account_details.Permanent_address}"></td>
+                <td th:text="${account_details.PAN_Number}"></td>
+                <td th:text="${account_details.Adhar_Number}"></td>
+                <td th:text="${account_details.amount}"></td>
+                <td><a th:href="@{/showFormForUpdate/{id}(id=${account_details.id})}" class="btn btn-primary">Update</a></td>
+                <td><a th:href="@{/deleteAccount_Details/{id}(id=${account_details.id})}" class="btn btn-danger">Delete</a></td>>
+            </tr>
+            </tbody>
+        </table>
+        <div th:if="${totalPages > 1}">
+            <div class="row col-sm-10">
+                <div class="col-sm-2">
+                    Total Rows: [[${totalItems}]]
+                </div>
+                <div class="col-sm-1">
+            <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+      <a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}}">[[${i}]]</a>
+      <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+            </span>
+                </div>
+                <div class="col-sm-1">
+                    <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}}">Next</a>
+                    <span th:unless="${currentPage < totalPages}">Next</span>
+                </div>
+
+                <div class="col-sm-1">
+                    <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${totalPages}}">Last</a>
+                    <span th:unless="${currentPage < totalPages}">Last</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+    </html>
